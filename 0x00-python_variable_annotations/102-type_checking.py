@@ -7,6 +7,8 @@ from typing import Tuple, TYPE_CHECKING, List
 
 
 def zoom_array(lst: Tuple, factor: int = 2) -> List:
+    """ Returns a list that contains each element of lst
+    repeated by factor times """
     zoomed_in: List = [
         item for item in lst
         for i in range(factor)
