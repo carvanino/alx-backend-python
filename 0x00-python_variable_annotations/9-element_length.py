@@ -1,9 +1,5 @@
 #!/usr/bin/env python3
-"""
-Duck type an Iterable object
-"""
-
-
+"""Duck type an Iterable object"""
 from typing import List, Tuple, Iterator, Sequence
 
 
