@@ -5,6 +5,7 @@ Multiple coroutines with async
 
 # import wait_random from './0-basic_async_syntax'
 import asyncio
+from typing import TYPE_CHECKING
 wait_random = __import__('0-basic_async_syntax').wait_random
 
 
