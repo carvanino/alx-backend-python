@@ -5,9 +5,10 @@ Async basics
 
 import asyncio
 import random
+from typing import TYPE_CHECKING
 
 
-async def wait_random(max_delay: int = 10) -> int:
+async def wait_random(max_delay: int = 10) -> float:
     """
     A coroutine that takes an int, max_delay as argument
     and await for a duration of random floating intergers
