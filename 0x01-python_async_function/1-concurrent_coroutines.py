@@ -20,6 +20,7 @@ async def wait_n(n: int, max_delay: int) -> List[float]:
     return delays
     '''
     task = [asyncio.create_task(wait_random(max_delay)) for i in range(n)]
+    # task = [wait_random(10), ...]
 
     result = await asyncio.gather(*task)
     # return task # This returned the tasks objects
