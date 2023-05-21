@@ -5,11 +5,12 @@ Test for client file
 
 import unittest
 from unittest.mock import patch, PropertyMock
-from parameterized import parameterized
+from parameterized import parameterized, parameterized_class
 import utils
 import client
 
 from client import GithubOrgClient
+from fixtures import TEST_PAYLOAD
 
 
 class TestGithubOrgClient(unittest.TestCase):
@@ -76,3 +77,24 @@ class TestGithubOrgClient(unittest.TestCase):
         result = GithubOrgClient.has_license(repo, license_key)
         self.assertEqual(result, expected)
 
+
+@parameterized_class(
+        ("org_payload", "repos_payload", "expected_repos", "apache2_repos"),
+        TEST_PAYLOAD
+        )
+class TestIntegrationGithubOrgClient(unittest.TestCase):
+    @classmethod
+    def setupClass(cls):
+        cls.fixt_payloads = [
+                cls.org_payload, cls.repos_payload,
+                cls.org_payload, cls.repos_payload
+                ]
+        config = {'return_value.json.side_effect': cls.fixt_payload}
+        cls.get_patcher = patch('requests.get', **config)
+        # cls.mock_get.return_value = fixt_payloads
+        # cls.mock_get.return_value.json.side_effect = cls.fixt_payloads
+        cls.mock_get = cls.get_patcher.start()
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.get_patcher.stop()
