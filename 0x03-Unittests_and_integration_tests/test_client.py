@@ -83,8 +83,14 @@ class TestGithubOrgClient(unittest.TestCase):
         TEST_PAYLOAD
         )
 class TestIntegrationGithubOrgClient(unittest.TestCase):
+    """
+    Integration testing with fixtures
+    """
     @classmethod
     def setupClass(cls):
+        """
+        Setupclass which mocks requests.get
+        """
         cls.fixt_payloads = [
                 cls.org_payload, cls.repos_payload,
                 cls.org_payload, cls.repos_payload
@@ -97,4 +103,7 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
 
     @classmethod
     def tearDownClass(cls):
+        """
+        Stops the patcher
+        """
         cls.get_patcher.stop()
