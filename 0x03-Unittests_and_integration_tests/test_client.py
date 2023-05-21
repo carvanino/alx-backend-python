@@ -87,7 +87,7 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
     Integration testing with fixtures
     """
     @classmethod
-    def setupClass(cls):
+    def setUpClass(cls):
         """
         Setupclass which mocks requests.get
         """
