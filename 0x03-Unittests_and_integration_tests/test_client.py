@@ -95,11 +95,31 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
                 cls.org_payload, cls.repos_payload,
                 cls.org_payload, cls.repos_payload
                 ]
-        config = {'return_value.json.side_effect': cls.fixt_payload}
+        config = {'return_value.json.side_effect': cls.fixt_payloads}
         cls.get_patcher = patch('requests.get', **config)
         # cls.mock_get.return_value = fixt_payloads
         # cls.mock_get.return_value.json.side_effect = cls.fixt_payloads
         cls.mock_get = cls.get_patcher.start()
+
+    def test_public_repos(self):
+        """
+        Integration for public_repo from client
+        """
+
+        ghc = GithubOrgClient('org')
+        self.assertEqual(ghc.org, self.org_payload)
+        self.assertEqual(ghc.repos_payload, self.repos_payload)
+        self.assertEqual(ghc.public_repos(), self.expected_repos)
+
+    def test_public_repos_with_license(self):
+
+        """
+        Integration test for _public_repos_with_license from client
+        """
+
+        ghc = GithubOrgClient('org')
+        self.assertEqual(ghc.public_repos(), self.expected_repos)
+        self.assertEqual(ghc.public_repos("apache-2.0"), self.apache2_repos)
 
     @classmethod
     def tearDownClass(cls):
